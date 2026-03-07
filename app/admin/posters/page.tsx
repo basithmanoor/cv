@@ -112,12 +112,12 @@ export default function ManagePostersPage() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 flex justify-between items-end">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white mb-2">Manage Posters</h1>
           <p className="text-brand-muted">View, highlight, edit, or remove artworks.</p>
         </div>
-        <div className="text-sm font-medium text-brand-muted bg-brand-surface px-4 py-2 rounded-lg border border-white/10">
+        <div className="text-sm font-medium text-brand-muted bg-brand-surface px-4 py-2 rounded-lg border border-white/10 inline-block w-fit">
           Total: <span className="text-white">{projects.length}</span>
         </div>
       </motion.div>
@@ -132,7 +132,7 @@ export default function ManagePostersPage() {
           <AnimatePresence>
             {projects.map((project) => (
               <motion.div layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} key={project.id} className="bg-brand-surface border border-white/10 rounded-xl overflow-hidden flex flex-col group relative">
-
+                
                 {/* Image */}
                 <div className="relative aspect-[4/5] w-full bg-brand-dark overflow-hidden border-b border-white/10">
                   <Image src={project.poster_image_url} alt={project.title} fill className="object-cover" />
@@ -178,16 +178,16 @@ export default function ManagePostersPage() {
       <AnimatePresence>
         {editingProject && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <motion.div
+            <motion.div 
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-brand-surface border border-white/10 rounded-2xl p-6 w-full max-w-lg shadow-2xl relative"
+              className="bg-brand-surface border border-white/10 rounded-2xl p-6 w-full max-w-lg shadow-2xl relative max-h-[90vh] overflow-y-auto"
             >
-              <button onClick={() => setEditingProject(null)} className="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 p-2 rounded-full">
+              <button onClick={() => setEditingProject(null)} className="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/5 p-2 rounded-full z-10">
                 <X className="w-5 h-5" />
               </button>
-
-              <h2 className="text-2xl font-bold text-white mb-6">Edit Project Details</h2>
-
+              
+              <h2 className="text-2xl font-bold text-white mb-6 pr-8">Edit Project Details</h2>
+              
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm text-gray-300 mb-1">Title</label>
@@ -199,7 +199,7 @@ export default function ManagePostersPage() {
                     {categories.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                   </select>
                 </div>
-
+                
                 {(editForm.category === 'magazine' || editForm.category === 'bullet') && (
                   <div>
                     <label className="block text-sm text-gray-300 mb-1">Read Link (URL)</label>
