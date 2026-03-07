@@ -11,14 +11,14 @@ export default function UploadPage() {
   const [category, setCategory] = useState("poster");
   const [externalLink, setExternalLink] = useState("");
   const [isHighlight, setIsHighlight] = useState(false);
-
+  
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-
+  
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
-
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const categories = [
@@ -133,23 +133,23 @@ export default function UploadPage() {
       </motion.div>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
+        
         {/* Left Column: Image Upload Area */}
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
           <div className="bg-brand-surface border border-white/10 rounded-2xl p-6 h-full flex flex-col">
             <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-brand-accent" /> Project Image
             </h3>
-
-            <div
+            
+            <div 
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
-              className={`flex-1 min-h-[300px] border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-6 transition-all relative overflow-hidden ${
+              className={`flex-1 min-h-[200px] md:min-h-[300px] border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-6 transition-all relative overflow-hidden ${
                 isDragging ? "border-brand-accent bg-brand-accent/5" : "border-white/20 hover:border-white/40 bg-brand-dark/50"
               }`}
             >
-              <input
+              <input 
                 type="file"
                 ref={fileInputRef}
                 onChange={(e) => e.target.files && handleFileSelection(e.target.files[0])}
@@ -159,14 +159,14 @@ export default function UploadPage() {
 
               <AnimatePresence>
                 {previewUrl ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9 }} 
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     className="absolute inset-2"
                   >
                     <img src={previewUrl} alt="Preview" className="w-full h-full object-contain rounded-lg" />
-                    <button
+                    <button 
                       type="button"
                       onClick={handleRemoveFile}
                       className="absolute top-2 right-2 bg-red-500/80 hover:bg-red-500 text-white p-2 rounded-full backdrop-blur-md transition-colors shadow-lg"
@@ -175,7 +175,7 @@ export default function UploadPage() {
                     </button>
                   </motion.div>
                 ) : (
-                  <motion.div
+                  <motion.div 
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                     className="text-center cursor-pointer"
                     onClick={() => fileInputRef.current?.click()}
@@ -195,7 +195,7 @@ export default function UploadPage() {
         {/* Right Column: Details Form */}
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="space-y-6">
           <div className="bg-brand-surface border border-white/10 rounded-2xl p-6">
-
+            
             {status && (
               <div className={`p-4 rounded-xl mb-6 text-sm flex items-center gap-3 ${
                 status.type === "success" ? "bg-green-500/10 border border-green-500/50 text-green-400" : "bg-red-500/10 border border-red-500/50 text-red-400"
@@ -234,12 +234,12 @@ export default function UploadPage() {
               {/* Conditional External Link Input */}
               <AnimatePresence>
                 {needsLink && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }} 
+                    animate={{ opacity: 1, height: "auto" }} 
                     exit={{ opacity: 0, height: 0 }}
                   >
-                    <label className="text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
                       <LinkIcon className="w-4 h-4" /> Read Link (Drive, PDF, etc.)
                     </label>
                     <input
@@ -286,7 +286,7 @@ export default function UploadPage() {
             {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Upload Project"}
           </button>
         </motion.div>
-
+        
       </form>
     </div>
   );
